@@ -6,6 +6,7 @@ const logger = require('morgan');
 const engines = require('consolidate');
 
 const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 
 // 뷰 경로 설정
 app.set('views', path.join(__dirname, '../client/views'));
@@ -20,5 +21,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/src')));
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
 module.exports = app;
