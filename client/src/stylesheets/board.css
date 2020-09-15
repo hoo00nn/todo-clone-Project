@@ -1,0 +1,50 @@
+.board__container .board__header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  padding: 15px 25px;
+}
+
+.board__header .header__left,
+.board__header .header__right {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.board__header .header__right {
+  cursor: pointer;
+}
+
+.board__header .header__sidenav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fafbfc;
+  transition: width 0.3s ease-in-out;
+}
+
+.board__header .header__sidenav.active {
+  width: 300px;
+}
+
+.header__sidenav .sidenav__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.header__sidenav .sidenav__header .sidenav__close-btn {
+  cursor: pointer;
+}
+
+.header__sidenav .sidenav__alarm {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ebebeb;
+}

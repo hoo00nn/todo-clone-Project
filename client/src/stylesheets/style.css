@@ -1,5 +1,6 @@
 @import './index.css';
 @import './signup.css';
+@import './board.css';
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
