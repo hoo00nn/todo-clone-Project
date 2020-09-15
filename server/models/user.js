@@ -11,6 +11,12 @@ const USER = {
   findUser: async (id) => {
     const user = await SqlExec(query.findUser, [id]);
     return user;
+  },
+
+  isCorrectUser: async (id, pw) => {
+    pw = crypto.createHash('sha512').update(pw).digest('base64');
+    const isCorrect = await SqlExec(query.isCorrectUser, [id, pw]);
+    return isCorrect.length !== 0 ? true : false;
   }
 }
 
