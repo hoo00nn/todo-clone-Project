@@ -9,11 +9,11 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 module.exports = {
   mode: "development",
   entry: {
-    main: ['@babel/polyfill', path.join(__dirname, "../client/public/init.js")],
+    main: ['@babel/polyfill', path.join(__dirname, "../client/src/init.js")],
   },
   output: {
     filename: "[name].js",
-    path: path.join(__dirname, "../client/bundle"),
+    path: path.join(__dirname, "../client/src/bundle"),
   },
   module: {
     rules: [
