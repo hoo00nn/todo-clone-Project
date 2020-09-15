@@ -1,9 +1,12 @@
+@import './index.css';
+@import './signup.css';
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: black;
+  margin: 0;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  color: #0366d6;
 }
