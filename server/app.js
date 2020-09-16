@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const engines = require('consolidate');
+const session = require('express-session');
+const sessionOption = require('./middleware/session');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
@@ -14,6 +16,7 @@ app.set('views', path.join(__dirname, '../client/views'));
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
+app.use(session(sessionOption));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
