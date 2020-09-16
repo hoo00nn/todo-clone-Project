@@ -50,5 +50,14 @@ module.exports = {
     ...(process.env.NODE_ENV === "production"
     ? [new MiniCssExtractPlugin({ filename : `[name].css` })]
     : [])
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, "/src"),
+    publicPath: "/",
+    host: "localhost",
+    overlay: true,
+    port: 8080,
+    stats: "errors-only",
+    historyApiFallback: true,
+  },
 }
