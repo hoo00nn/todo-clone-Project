@@ -56,11 +56,11 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, "./src"),
+    contentBase: path.join(__dirname, "./src/bundle"),
     publicPath: "/",
     host: "localhost",
     overlay: true,
-    port: 8080,
+    port: 9000,
     stats: "errors-only",
     historyApiFallback: true,
   },
