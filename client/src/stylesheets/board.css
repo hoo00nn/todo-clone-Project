@@ -27,6 +27,7 @@
   flex-direction: column;
   background-color: #fafbfc;
   transition: width 0.3s ease-in-out;
+  overflow: hidden;
 }
 
 .board__header .header__sidenav.active {
