@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const banner = require("./banner.js");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -49,10 +50,13 @@ module.exports = {
     new CleanWebpackPlugin(),
     ...(process.env.NODE_ENV === "production"
     ? [new MiniCssExtractPlugin({ filename : `[name].css` })]
-    : [])
+    : []),
+    new HtmlWebpackPlugin({
+      template: './src/index.html', // 템플릿 경로를 지정
+    })
   ],
   devServer: {
-    contentBase: path.join(__dirname, "/src"),
+    contentBase: path.join(__dirname, "./src"),
     publicPath: "/",
     host: "localhost",
     overlay: true,
