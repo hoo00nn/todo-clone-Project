@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const query = require('./query');
 const { SqlExec } = require('./execute');
 
