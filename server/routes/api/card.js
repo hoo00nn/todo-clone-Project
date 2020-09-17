@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 router.delete('/', async (req, res) => {
-  const result = await card.deleteCard(req.body.card_no);
+  const result = await card.deleteCard(req.body);
 
   if (result) return res.status(200).json({ status : 'success' });
   return res.status(400).json({ status : 'fail' });

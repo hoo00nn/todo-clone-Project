@@ -2,11 +2,10 @@ const { Board } = require('../models/board');
 const { logService } = require('../services/log');
 
 const insertCard = async (data) => {
-  data.date = `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`;
-  const cardInfo = [data.title, data.content, data.user_id, data.column_no, data.date];
-  const insertCard = await Board.insertCard(cardInfo);
-  const addLog = await logService.logByAdd(data);
-  if(addLog && insertCard) return true;
+  const cardData = [data.title, data.content, data.user_id, data.column_no];
+  const logData = await logService.logByAdd(data);
+  const insertCard = await Board.insertCard(cardData, logData);
+  if(insertCard) return true;
   return false;
 }
 
@@ -14,18 +13,18 @@ const getCardByID = async (id) => {
   return await Board.getCardByID(id);
 }
 
-const deleteCard = async (card_no) => {
-  const result = await Board.deleteCard(card_no); 
-  if(result.affectedRows === 0) return false;
-  return true;
+const deleteCard = async (data) => {
+  const logData = await logService.logByDelete(data);
+  const deleteCard = await Board.deleteCard(data.card_no, logData); 
+  if(deleteCard) return true;
+  return false;
 }
 
 const updateCard = async (data) => {
-  data.date = `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`;
-  const updateInfo = [data.title, data.content, data.column_no, data.date, data.card_no];
-  const updateCard = await Board.updateCard(updateInfo);
-  const logByUpdate = await logService.logByUpdate(data);
-  if(updateCard && logByUpdate) return true;
+  const cardData = [data.title, data.content, data.column_no, data.card_no];
+  const logData = await logService.logByUpdate(data);
+  const updateCard = await Board.updateCard(cardData, logData);
+  if(updateCard) return true;
   return false;
 }
 
