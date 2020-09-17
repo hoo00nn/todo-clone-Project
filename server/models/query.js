@@ -8,7 +8,7 @@ module.exports = {
   updateBoard: `update board set title = ? where title = ?`,
   getCard: `select * from card where user_id = ?`,
   insertCard: `insert into card (title, content, user_id, column_no, date) values (?, ?, ?, ?, now())`,
-  updateCard: `update card set title = ?, content = ?, column_no = ?, date = ? where card_no = ?`,
+  updateCard: `update card set title = ?, content = ?, column_no = ? where card_no = ?`,
   deleteCard: `delete from card where card_no = ?`,
   getLog: `select * from log`,
   insertLog: `insert into log (user_id, date, state, log_to, log_from, message, title) values (?, now(), ?, ?, ?, ?, ?)`,
