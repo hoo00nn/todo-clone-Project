@@ -9,21 +9,21 @@ router.get('/', async (req, res) => {
   return res.status(400).json({ status : 'fail' });
 });
 
-router.post('/add', async (req, res) => {
+router.post('/', async (req, res) => {
    const result = await card.insertCard(req.body);
 
    if (result) return res.status(201).json({ status : 'success' });
    return res.status(400).json({ status : 'fail' });
 });
 
-router.post('/delete', async (req, res) => {
+router.delete('/', async (req, res) => {
   const result = await card.deleteCard(req.body.card_no);
 
   if (result) return res.status(200).json({ status : 'success' });
   return res.status(400).json({ status : 'fail' });
 });
 
-router.patch('/update', async (req, res) => {
+router.patch('/', async (req, res) => {
   const result = await card.updateCard(req.body);
   
   if (result) return res.status(200).json({ status : 'success' });
