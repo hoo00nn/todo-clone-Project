@@ -8,7 +8,7 @@ const Log = {
   },
 
   insertLog: async (data) => {
-    await SqlExec(query.insertLog, data);
+    return await SqlExec(query.insertLog, data);
   }
 }
 
