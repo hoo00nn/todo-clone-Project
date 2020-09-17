@@ -21,14 +21,16 @@ const Board = {
   },
 
   insertCard : async (data) => {
+    const result = await SqlExec(query.insertCard, data);
+    return result;
   },
 
   updateCard : async (data) => {
-
+    return await SqlExec(query.updateCard, data);
   },
 
   deleteCard : async (title) => {
-    await SqlExec(query.deleteCard, [title]);
+    return await SqlExec(query.deleteCard, [title]);
   }
 }
 
