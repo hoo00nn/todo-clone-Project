@@ -7,6 +7,11 @@ const Board = {
     return boardList;
   },
 
+  getBoardName : async (column_no) => {
+    const name = await SqlExec(query.getBoardName, [column_no]);
+    return name;
+  },
+
   insertBoard : async (title) => {
     await SqlExec(query.insertBoard, [title]);
   },
