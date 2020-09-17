@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const signup = require('./api/signup');
-const signin = require('./api/signin');
 const board = require('./api/board');
 const card = require('./api/card');
+const user = require('./api/user');
 
-router.use('/signup', signup);
-router.use('/signin', signin);
 router.use('/board', board);
 router.use('/card', card);
+router.use('/user', user);
 
 module.exports = router;

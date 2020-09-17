@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const board = require('../../services/board');
+const { logService } = require('../../services/log');
 
 router.get('/', async (req, res) => {
-  const boardList = await board.getBoard();
-  if (boardList) return res.status(200).json({ boardList });
+  const logList = await logService.getLogByID(req.session.username);
+  if (logList) return res.status(200).json({ logList });
   return res.status(400).json({ status : 'fail' });
 });
 

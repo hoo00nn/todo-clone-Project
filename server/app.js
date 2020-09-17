@@ -8,11 +8,11 @@ const sessionOption = require('./middleware/session');
 
 const apiRouter = require('./routes/api');
 
-app.use(session(sessionOption));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session(sessionOption));
 app.use(express.static(path.join(__dirname, '../client/src')));
 
 app.use('/api', apiRouter);

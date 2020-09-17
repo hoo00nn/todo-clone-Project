@@ -2,13 +2,21 @@ const { SqlExec } = require('./execute');
 const query = require('./query');
 
 const Log = {
-  getLog: async () => {
-    const logList = await SqlExec(query.getLog, []);
-    return logList;
-  },
-
-  insertLog: async (data) => {
-    await SqlExec(query.insertLog, data);
+  getLogByID: async (id) => {
+    const result = await SqlExec(async (conn) => {
+      try {
+        const [ logList ] = await conn.query(query.getLog, [id]);
+        await conn.commit();
+        return logList;
+      } catch(err) {
+        console.log('Query Error');
+        await conn.rollback();
+        return false;
+      } finally {
+        conn.release();
+      }
+    })
+    return result;
   }
 }
 
