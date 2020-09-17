@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { Board } = require('../../models/board');
+const board = require('../../services/board');
 
 router.get('/', async (req, res) => {
-  const boardList = await Board.getBoard();
-  return res.json({ boardList });
-})
+  const boardList = await board.getBoard();
+  if (boardList) return res.state(200).json({ boardList });
+  return res.state(400).json({ status : 'fail' });
+});
 
 module.exports = router;
