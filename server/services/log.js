@@ -1,4 +1,5 @@
 const { Board } = require('../models/board');
+const { Log } = require('../models/log');
 
 const logService = {
   logByAdd: async (data) => {
@@ -26,6 +27,10 @@ const logService = {
 
   logByMove: () => {
 
+  },
+
+  getLogByID: async (id) => {
+    return await Log.getLogByID(id);
   }
 }
 
