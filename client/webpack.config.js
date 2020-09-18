@@ -10,7 +10,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 module.exports = {
   mode: "development",
   entry: {
-    main: ['@babel/polyfill', path.join(__dirname, "./src/init.js")],
+    main: path.join(__dirname, "./src/init.js"),
   },
   output: {
     filename: "[name].js",
