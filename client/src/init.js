@@ -1,2 +1,4 @@
 import './stylesheets/style.css';
-new Promise();
+import './javascripts/board';
+import './javascripts/index';
+import './javascripts/signin';

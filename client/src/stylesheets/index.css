@@ -19,7 +19,7 @@
   margin-top: 35px;
 }
 
-.container .login__container .login__form {
+.container .login__container {
   width: 290px;
   height: 200px;
   display: flex;
@@ -31,14 +31,14 @@
   border-radius: 6px;
 }
 
-.login__container .login__form > span {
+.login__container > span {
   font-size: 14px;
   display: block;
   margin-bottom: 8px;
   text-align: left;
 }
 
-.login__container .login__form > input {
+.login__container > input {
   margin-top: 5px;
   margin-bottom: 10px;
   padding: 10px 12px;
@@ -49,7 +49,7 @@
   box-shadow: inset 0 1px 0 rgba(225,228,232,.2);
 }
 
-.login__container .login__form > button {
+.login__container > button {
   border: 1px solid;
   border-radius: 6px;
   text-align: center;

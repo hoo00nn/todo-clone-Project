@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./stylesheets/style.css">
   <title>membership J118 todo</title>
 </head>
 <body>
@@ -13,13 +12,11 @@
       <h1 class="title">Sign in to Todo</h1>
     </div>
     <div class="login__container">
-      <form action="/api/signin", method="POST", class="login__form">
         <span class="username">Username or email address</span>
-        <input type="text", name="username">
+        <input type="text", id="username", name="username">
         <span class="password">Password</span>
-        <input type="password", name="password">
-        <button type="submit" class="test">Sign in</button>
-      </form>
+        <input type="password", id="password", name="password">
+        <button id="login">Sign in</button>
     </div>
     <div class="register__container">
       <span>New to Todo? <a href="/signup.html"> Create an account</a>.</span>
@@ -32,5 +29,4 @@
     </div>
   </div>
 </body>
-<script src="./javascripts/index.js"></script>
 </html>
