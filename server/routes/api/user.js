@@ -8,7 +8,7 @@ router.post('/signin', async (req, res) => {
   if(isCorrectUser) {
     req.session.username = req.body.username;
     req.session.save();
-    return res.status(200).json({ status : 'success', mssage : message.successToLogin });
+    return res.status(200).json({ status : 'success', message : message.successToLogin });
   }
   return res.status(400).json({ status : 'fail', message : message.failToLogin });
 })
