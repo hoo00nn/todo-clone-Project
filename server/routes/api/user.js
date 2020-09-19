@@ -22,7 +22,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/logout', async (req, res) => {
   req.session.destroy();
-  res.status(201).json({ staus : 'success', message : message.successToLogout });
+  res.status(201).json({ status : 'success', message : message.successToLogout });
 })
 
 
