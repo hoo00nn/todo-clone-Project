@@ -1,5 +1,5 @@
 import '../stylesheets/style.css';
-import User from './utils/user';
+import Auth from './utils/auth';
 
 const boardHeader = document.querySelector('.board__header'); 
 const logoutButton = document.querySelector('#logout__button');
@@ -13,7 +13,7 @@ boardHeader.addEventListener('click', (e) => {
 });
 
 logoutButton.addEventListener('click', async () => {
-  const isLogout = await User.logout();
+  const isLogout = await Auth.tryLogout();
   
   if(isLogout.status === 'success') return window.location.href='/';
   return alert(isLogout.message);

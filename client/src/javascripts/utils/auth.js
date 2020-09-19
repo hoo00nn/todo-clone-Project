@@ -1,27 +1,21 @@
+import request from './request-api';
+
 const Auth = {
   tryLogin: async (username, password) => {
-    const response = await fetch(
+    const response = request(
+      'POST',
       'http://localhost:8081/api/user/signin',
-      {
-        method : 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username : username, password : password })
-      });
-    return await response.json();
+      { username : username, password : password});
+
+    return response;
   },
 
   tryLogout: async () => {
-    const response = await fetch(
-      'http://localhost:8081/api/user/logout',
-      {
-        method : 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-    return await response.json();
+    const response = request(
+      'POST',
+     'http://localhost:8081/api/user/logout');
+
+    return response;
   }
 }
 
