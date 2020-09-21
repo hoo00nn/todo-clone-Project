@@ -3,7 +3,7 @@ const router = express.Router();
 const card = require('../../services/card');
 const { isLogined } = require('../../middleware/auth');
 
-router.get('/', isLogined, async (req, res) => {
+router.get('/', async (req, res) => {
   const cardList = await card.getCardByID('test');
 
   if(cardList) return res.status(200).json({ cardList });
