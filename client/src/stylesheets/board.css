@@ -93,7 +93,7 @@
 }
 
 .note__footer .add__button {
-  background-color:#2ea44f;
+  background-color:#94d3a2;;
   color: white;
   border-color: rgba(27,31,35,.1);
   border-radius: 3px;
@@ -102,6 +102,13 @@
   margin-right: 5px;
   text-align: center;
   flex: 1 1 0;
+  pointer-events: none;
+}
+
+.note__footer .add__button.keyup {
+  background-color:#2ea44f;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .note__footer .cancel__button {

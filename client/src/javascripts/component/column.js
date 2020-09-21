@@ -53,16 +53,6 @@ class Column {
 
     board.insertAdjacentHTML('beforeend', html);
   }
-
-  clickPlusButtonEvent = () => {
-    const plusBtn = document.querySelectorAll('.plus__button');
-
-    plusBtn.forEach(v => v.addEventListener('click', e => {
-      e.stopPropagation();
-
-      console.log(e);
-    }));
-  }
 }
 
 export default Column;

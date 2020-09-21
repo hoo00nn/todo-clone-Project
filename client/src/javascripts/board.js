@@ -9,11 +9,6 @@ class Board {
     this.logoutButton = document.querySelector('#logout__button');
   }
 
-  on = () => {
-    this.boardHeader.addEventListener('click', this.makeSideNavToggle);
-    this.logoutButton.addEventListener('click', this.logout);
-  }
-
   logout = async () => {
     const isLogout = await Auth.tryLogout();
   
@@ -34,10 +29,15 @@ class Board {
       'GET',
       'http://localhost:8081/api/board');
 
-    response.boardList.forEach(async (v) => {
-      await new Column(v.title, v.column_no)
+    // response.boardList.forEach(async (v) => {
+    //   await new Column(v.title, v.column_no)
+    //   .makeColumnElement();
+    // });
+
+    for (const item of response.boardList) {
+      await new Column(item.title, item.column_no)
       .makeColumnElement();
-    });
+    }
 
     // response.boardList.forEach(async (v) => {
     //   const column = await new Column(v.title, v.column_no)
@@ -45,9 +45,36 @@ class Board {
     // });
   }
 
+  clickPlusButtonEvent = () => {
+    const plusBtn = document.querySelectorAll('.plus__button');
+    
+    plusBtn.forEach(v => v.addEventListener('click', e => {
+      const parentNode = e.target.closest('.column');
+      parentNode.querySelector('.note').classList.toggle('hide');
+    }));
+  }
+
+  keyDownNoteEvent = () => {
+    const note = document.querySelectorAll('.note');
+
+    note.forEach(v => v.addEventListener('keyup', (e) => {
+      const addButton = e.currentTarget.querySelector('.add__button');
+      console.log(e.target.value);
+      if (e.target.value === '') addButton.classList.remove('keyup');
+      else addButton.classList.add('keyup');
+    }))
+  }
+
+  on = () => {
+    this.boardHeader.addEventListener('click', this.makeSideNavToggle);
+    this.logoutButton.addEventListener('click', this.logout);
+    this.clickPlusButtonEvent();
+    this.keyDownNoteEvent();
+  }
+
   init = async () => {
-    this.on();
     await this.printBoard();
+    this.on();
   }
 }
 
