@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const card = require('../../services/card');
+const { isLogined } = require('../../middleware/auth');
 
 router.get('/', async (req, res) => {
   const cardList = await card.getCardByID('test');
@@ -9,21 +10,21 @@ router.get('/', async (req, res) => {
   return res.status(400).json({ status : 'fail' });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', isLogined, async (req, res) => {
    const result = await card.insertCard(req.body);
 
    if (result) return res.status(201).json({ status : 'success' });
    return res.status(400).json({ status : 'fail' });
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/', isLogined, async (req, res) => {
   const result = await card.deleteCard(req.body);
 
   if (result) return res.status(200).json({ status : 'success' });
   return res.status(400).json({ status : 'fail' });
 });
 
-router.patch('/', async (req, res) => {
+router.patch('/', isLogined, async (req, res) => {
   const result = await card.updateCard(req.body);
   
   if (result) return res.status(200).json({ status : 'success' });

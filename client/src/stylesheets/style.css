@@ -2,9 +2,15 @@
 @import './signup.css';
 @import './board.css';
 
+* {
+  box-sizing: border-box;;
+}
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 a {

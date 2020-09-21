@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const board = require('../../services/board');
+const { isLogined } = require('../../middleware/auth');
 
 router.get('/', async (req, res) => {
   const boardList = await board.getBoard();

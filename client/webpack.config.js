@@ -10,7 +10,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 module.exports = {
   mode: "development",
   entry: {
-    main: ['@babel/polyfill', path.join(__dirname, "./src/init.js")],
+    user: path.join(__dirname, "./src/javascripts/signin.js"),
+    board: path.join(__dirname, './src/javascripts/board.js'),
   },
   output: {
     filename: "[name].js",
@@ -52,7 +53,22 @@ module.exports = {
     ? [new MiniCssExtractPlugin({ filename : `[name].css` })]
     : []),
     new HtmlWebpackPlugin({
-      template: './src/index.html', // 템플릿 경로를 지정
+      title: 'todo 로그인',
+      filename : 'index.html',
+      template: './src/index.html',
+      chunks: ['user'],
+    }),
+    new HtmlWebpackPlugin({
+      title: 'todo 회원가입',
+      filename : 'signup.html',
+      template: './src/signup.html', 
+      chunks: ['user'],
+    }),
+    new HtmlWebpackPlugin({
+      title: 'todo 페이지',
+      filename : 'board.html',
+      template: './src/board.html', 
+      chunks: ['board'],
     })
   ],
   devServer: {
