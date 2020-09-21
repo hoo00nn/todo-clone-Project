@@ -45,18 +45,23 @@ class Column {
     const cardList = await this.cards.makeCardElement();
     let html = '';
     
-    html += await this.makeColumnHeader();
+    html += `<div class="column" data-no=${this.column}>`;
+    html += `${await this.makeColumnHeader()}`;
+    html += `${this.makeNoteElement()}`;
+    html += `${cardList}`;
+    html += `</div>`;
 
-    board.insertAdjacentHTML('beforeend', `<div class="column" data-no=${this.column}> ${html} ${this.makeNoteElement()} ${cardList} </div>`);
-    this.clickPlusButtonEvent();
+    board.insertAdjacentHTML('beforeend', html);
   }
 
   clickPlusButtonEvent = () => {
-    const plusBtn = document.querySelector('.plus__button');
+    const plusBtn = document.querySelectorAll('.plus__button');
 
-    plusBtn.addEventListener('click', (e) => {
+    plusBtn.forEach(v => v.addEventListener('click', e => {
+      e.stopPropagation();
+
       console.log(e);
-    })
+    }));
   }
 }
 

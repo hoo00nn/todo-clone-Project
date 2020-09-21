@@ -6,7 +6,7 @@ module.exports = {
   getBoardName: `select * from board where column_no = ?`,
   insertBoard: `insert into board (title) values (?)`,
   updateBoard: `update board set title = ? where title = ?`,
-  getCard: `select * from card where user_id = ?`,
+  getCard: `select * from card where user_id = ? order by column_no`,
   insertCard: `insert into card (title, content, user_id, column_no, date) values (?, ?, ?, ?, now())`,
   updateCard: `update card set title = ?, content = ?, column_no = ? where card_no = ?`,
   deleteCard: `delete from card where card_no = ?`,

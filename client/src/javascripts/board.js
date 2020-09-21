@@ -33,16 +33,21 @@ class Board {
     const response = await request(
       'GET',
       'http://localhost:8081/api/board');
-    
+
     response.boardList.forEach(async (v) => {
-      const column = new Column(v.title, v.column_no);
-      await column.makeColumnElement();
+      await new Column(v.title, v.column_no)
+      .makeColumnElement();
     });
+
+    // response.boardList.forEach(async (v) => {
+    //   const column = await new Column(v.title, v.column_no)
+    //   column.makeColumnElement();
+    // });
   }
 
   init = async () => {
     this.on();
-    this.printBoard();
+    await this.printBoard();
   }
 }
 

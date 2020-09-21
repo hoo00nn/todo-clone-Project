@@ -8,7 +8,7 @@ class Card {
   getCardByColumn = async () => {
     const response = await request(
       'GET',
-      'http://localhost:8081/api/card',
+      `http://localhost:8081/api/card/`,
       );
 
     return response;
