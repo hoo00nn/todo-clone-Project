@@ -9,7 +9,7 @@ const insertCard = async (data) => {
 }
 
 const getCardByID = async (id) => {
-  return await Board.getCardByID(id);
+  return await Card.getCardByID(id);
 }
 
 const deleteCard = async (data) => {

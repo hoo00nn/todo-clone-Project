@@ -6,7 +6,7 @@ const message = require('../../utils/response-message');
 router.post('/signin', async (req, res) => {
   const isCorrectUser = await user.signin(req.body.username, req.body.password);
   if(isCorrectUser) {
-    req.session.username = req.body.username;
+    req.session.user = req.body.username;
     req.session.save();
     return res.status(200).json({ status : 'success', message : message.successToLogin });
   }

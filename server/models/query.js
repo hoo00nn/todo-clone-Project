@@ -2,7 +2,7 @@ module.exports = {
   insertUser: `insert into user(id, password) values(?, ?)`,
   findUser: `select * from user where id = ?`,
   isCorrectUser: `select * from user where id = ? and password = ?`,
-  getBoard: `select * from board`,
+  getBoard: `select * from board order by column_no`,
   getBoardName: `select * from board where column_no = ?`,
   insertBoard: `insert into board (title) values (?)`,
   updateBoard: `update board set title = ? where title = ?`,
