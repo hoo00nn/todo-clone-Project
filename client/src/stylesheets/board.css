@@ -33,10 +33,11 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #fafbfc;
   transition: width 0.3s ease-in-out;
   overflow: hidden;
   z-index: 1;
+  border: 1px solid #e1e4e8;
+  box-shadow: -3px 0 5px rgba(36,41,46,.05);
 }
 
 .board__header .header__sidenav.active {
@@ -48,6 +49,7 @@
   justify-content: space-between;
   padding: 8px 10px;
   border-bottom: 1px solid #ebebeb;
+  background-color: #f6f8fa;
 }
 
 .header__sidenav .sidenav__header .sidenav__close-btn {
@@ -57,6 +59,36 @@
 .header__sidenav .sidenav__alarm {
   padding: 8px 10px;
   border-bottom: 1px solid #ebebeb;
+  background-color: #f6f8fa;
+}
+
+.header__sidenav .sidenav__content {
+  height: 100%;
+  background-color: #fff;
+}
+
+.header__sidenav .sidenav__content .log {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__sidenav .sidenav__content .log .log__content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 16px 25px;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.log .log__content .log__userid,
+.log .log__content .log__title {
+  font-weight: 600;
+  color: #0366d6;
+}
+
+.sidenav__content .log .log__date {
+  font-size: 12px;
+  color: #6a737d;
+  margin-top: 6px;
 }
 
 .board__container .board__content {
