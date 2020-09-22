@@ -10,7 +10,8 @@ router.get('/', async (req, res) => {
   return res.status(400).json({ status : 'fail' });
 });
 
-router.post('/', isLogined, async (req, res) => {
+router.post('/', async (req, res) => {
+  req.body.user_id = 'test';
    const result = await card.insertCard(req.body);
 
    if (result) return res.status(201).json({ status : 'success' });

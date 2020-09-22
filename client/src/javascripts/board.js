@@ -25,6 +25,9 @@ class Board {
   }
 
   printBoard = async () => {
+    const boardContent = document.querySelector('.board__content');
+    boardContent.innerHTML = '';
+
     const response = await request(
       'GET',
       'http://localhost:8081/api/board');
@@ -79,10 +82,32 @@ class Board {
       const closeBtn = v.querySelector('.close__button');
 
       closeBtn.addEventListener('click', async () => {
-        const result = await request('delete', 'http://localhost:8081/api/card', cardInfo);
-        if (result.status === 'success') v.remove();
+        const response = await request('delete', 'http://localhost:8081/api/card', cardInfo);
+        if (response.status === 'success') await this.init();
         else alert('삭제에 실패 하였습니다.');
       });
+    })
+  }
+
+  insertCardEvent = () => {
+    const note = document.querySelectorAll('.note');
+
+    note.forEach(v => {
+      const content = v.querySelector('#note');
+      const addButton = v.querySelector('.add__button');
+
+      addButton.addEventListener('click', async () => {
+        const column = v.closest('.column').dataset.no;
+        const textarea = content.value.split('\n');
+        const body = {
+          title : textarea[0],
+          content : textarea.slice(1).join('\n'),
+          column_no : column, 
+        }
+        const response = await request('POST', 'http://localhost:8081/api/card', body);
+        if (response.status === 'success') await this.init();
+        else alert('카드 추가에 실패하였습니다.');
+      })
     })
   }
 
@@ -93,6 +118,7 @@ class Board {
     this.keyDownNoteEvent();
     this.clickCancelButtonEvent();
     this.deleteCardEvent();
+    this.insertCardEvent();
   }
 
   init = async () => {
