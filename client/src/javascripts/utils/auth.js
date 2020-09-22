@@ -4,7 +4,7 @@ const Auth = {
   tryLogin: async (username, password) => {
     const response = request(
       'POST',
-      'http://localhost:8081/api/user/signin',
+      '/api/user/signin',
       { username : username, password : password});
 
     return response;
@@ -13,7 +13,7 @@ const Auth = {
   tryLogout: async () => {
     const response = request(
       'POST',
-     'http://localhost:8081/api/user/logout');
+     '/api/user/logout');
 
     return response;
   }
