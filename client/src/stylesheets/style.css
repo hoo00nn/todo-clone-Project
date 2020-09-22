@@ -1,6 +1,7 @@
 @import './index.css';
 @import './signup.css';
 @import './board.css';
+@import './util/modal.css';
 
 * {
   box-sizing: border-box;;

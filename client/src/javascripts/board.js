@@ -2,6 +2,7 @@ import request from './utils/request-api';
 import Column from './component/column';
 import '../stylesheets/style.css';
 import Auth from './utils/auth';
+import Modal from './utils/modal';
 
 class Board {
   constructor() {
@@ -81,7 +82,8 @@ class Board {
       const cardInfo = JSON.parse(v.dataset.card);
       const closeBtn = v.querySelector('.close__button');
 
-      closeBtn.addEventListener('click', async () => {
+      closeBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
         const response = await request('delete', 'http://localhost:8081/api/card', cardInfo);
         if (response.status === 'success') await this.init();
         else alert('삭제에 실패 하였습니다.');
@@ -124,6 +126,7 @@ class Board {
   init = async () => {
     await this.printBoard();
     this.on();
+    new Modal().on();
   }
 }
 

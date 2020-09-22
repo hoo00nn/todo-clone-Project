@@ -170,6 +170,7 @@
   border: 1px solid white;
   border-radius: 5px;
   margin: 10px 0;
+  cursor: pointer;
 }
 
 .card .card__header {
@@ -191,5 +192,55 @@
 
 .card .card__content {
   margin-top: 15px;
+}
+
+.card .modal .header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 16px;
+  background-color: #f6f8fa;
+  font-weight: bold;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.card .modal .content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 16px 16px;
+}
+
+.card .modal .content > span:nth-of-type(1) {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.card .modal .content > textarea {
+  font-size: 14px;
+  padding: 5px 12px;
+  margin-bottom: 5px;
+  line-height: 1.5;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(225,228,232,.2);
+  margin-bottom: 10px;
+  resize: vertical;
+  max-height: 300px;
+}
+
+.card .modal .content .save__button {
+  cursor: pointer;
+  width: 140px;
+  text-align: center;
+  padding: 10px 16px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #2ea44f;
+  border-color: rgba(27,31,35,.15);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(27,31,35,.1), inset 0 1px 0 hsla(0,0%,100%,.03);
 }
 

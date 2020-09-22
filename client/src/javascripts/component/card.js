@@ -29,13 +29,39 @@ class Card {
     return html;
   }
 
+  makeCardModal = (title, content) => {
+    let html = '';
+
+    html += `<div class="modal hidden">`;
+    html += `<div class="modal__overlay"></div>`;
+    html += `<div class="modal__content">`;
+    html += `<div class="header">`;
+    html += `<span>Edit note</span>`;
+    html += `<svg class="modal__close__button" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>`;
+    html += `</div>`;
+    html += `<div class="content">`;
+    html += `<span>Note</span>`;
+    html += `<textarea name="note" id="note" rows="6">${title}\n${content}</textarea>`;
+    html += `<span class="save__button">Save Note</span>`;
+    html += `</div>`;
+    html += `</div>`;
+    html += `</div>`;
+
+    return html;
+  }
+
   makeCardElement = async () => {
     let html = '';
     const cards = await this.getCardByColumn();
     
     cards.cardList
     .filter(v => v.column_no === this.column)
-    .forEach(v => html += `<div class="card" data-card='${JSON.stringify(v)}'> ${this.makeCardContent(v.title, v.content)} </div>`);
+    .forEach(v => {
+      html += `<div class="card modal__open" data-card='${JSON.stringify(v)}'>`;
+      html += `${this.makeCardModal(v.title, v.content)}`;
+      html += `${this.makeCardContent(v.title, v.content)}`;
+      html += `</div>`;
+    });
     
 
     return html;
