@@ -26,6 +26,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "core-js": "^3.6.5"
+    "core-js": "^3.6.5",
+    "dotenv-webpack": "^3.0.0"
   }
 }
