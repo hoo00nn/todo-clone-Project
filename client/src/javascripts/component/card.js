@@ -35,7 +35,8 @@ class Card {
     
     cards.cardList
     .filter(v => v.column_no === this.column)
-    .forEach(v => html += `<div class="card"> ${this.makeCardContent(v.title, v.content)} </div>`);
+    .forEach(v => html += `<div class="card" data-card='${JSON.stringify(v)}'> ${this.makeCardContent(v.title, v.content)} </div>`);
+    
 
     return html;
   }

@@ -71,12 +71,28 @@ class Board {
     })
   }
 
+  deleteCardEvent = () => {
+    const card = document.querySelectorAll('.card');
+    
+    card.forEach(v => {
+      const cardInfo = JSON.parse(v.dataset.card);
+      const closeBtn = v.querySelector('.close__button');
+
+      closeBtn.addEventListener('click', async () => {
+        const result = await request('delete', 'http://localhost:8081/api/card', cardInfo);
+        if (result.status === 'success') v.remove();
+        else alert('삭제에 실패 하였습니다.');
+      });
+    })
+  }
+
   on = () => {
     this.boardHeader.addEventListener('click', this.makeSideNavToggle);
     this.logoutButton.addEventListener('click', this.logout);
     this.clickPlusButtonEvent();
     this.keyDownNoteEvent();
     this.clickCancelButtonEvent();
+    this.deleteCardEvent();
   }
 
   init = async () => {

@@ -149,6 +149,10 @@
   font-size: 12px;
 }
 
+.column__header .header__right .plus__button {
+  cursor: pointer;
+}
+
 .column__header .header__right .close__button {
   margin-left: 7px;
 }
@@ -172,6 +176,10 @@
   display: flex;
   justify-content: space-between;
   position: relative;
+}
+
+.card .card__header .close__button {
+  cursor: pointer;
 }
 
 .card .card__header .note__img {

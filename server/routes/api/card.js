@@ -17,7 +17,7 @@ router.post('/', isLogined, async (req, res) => {
    return res.status(400).json({ status : 'fail' });
 });
 
-router.delete('/', isLogined, async (req, res) => {
+router.delete('/', async (req, res) => {
   const result = await card.deleteCard(req.body);
 
   if (result) return res.status(200).json({ status : 'success' });
