@@ -25,7 +25,7 @@ router.delete('/', async (req, res) => {
   return res.status(400).json({ status : 'fail' });
 });
 
-router.patch('/', isLogined, async (req, res) => {
+router.put('/', async (req, res) => {
   const result = await card.updateCard(req.body);
   
   if (result) return res.status(200).json({ status : 'success' });

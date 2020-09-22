@@ -113,6 +113,25 @@ class Board {
     })
   }
 
+  updateCardEvent = () => {
+    const card = document.querySelectorAll('.card');
+
+    card.forEach(v => {
+      const saveButton = v.querySelector('.save__button');
+
+      saveButton.addEventListener('click', async () => {
+        const textarea = v.querySelector('#note');
+        let body = JSON.parse(v.dataset.card);
+        body.title = textarea.value.split('\n')[0];
+        body.content = textarea.value.split('\n').slice(1).join('\n');
+        const response = await request('put', 'http://localhost:8081/api/card', body);
+
+        if(response.status === 'success') this.init();
+        else alert('업데이트에 실패 했습니다.');
+      })
+    })
+  }
+
   on = () => {
     this.boardHeader.addEventListener('click', this.makeSideNavToggle);
     this.logoutButton.addEventListener('click', this.logout);
@@ -121,6 +140,7 @@ class Board {
     this.clickCancelButtonEvent();
     this.deleteCardEvent();
     this.insertCardEvent();
+    this.updateCardEvent();
   }
 
   init = async () => {
