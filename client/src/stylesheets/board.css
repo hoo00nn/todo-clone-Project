@@ -33,14 +33,15 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #fafbfc;
   transition: width 0.3s ease-in-out;
   overflow: hidden;
   z-index: 1;
+  border: 1px solid #e1e4e8;
+  box-shadow: -3px 0 5px rgba(36,41,46,.05);
 }
 
 .board__header .header__sidenav.active {
-  width: 300px;
+  width: 350px;
 }
 
 .header__sidenav .sidenav__header {
@@ -48,6 +49,7 @@
   justify-content: space-between;
   padding: 8px 10px;
   border-bottom: 1px solid #ebebeb;
+  background-color: #f6f8fa;
 }
 
 .header__sidenav .sidenav__header .sidenav__close-btn {
@@ -57,6 +59,37 @@
 .header__sidenav .sidenav__alarm {
   padding: 8px 10px;
   border-bottom: 1px solid #ebebeb;
+  background-color: #f6f8fa;
+}
+
+.header__sidenav .sidenav__content {
+  height: 100%;
+  background-color: #fff;
+  overflow: scroll;
+}
+
+.header__sidenav .sidenav__content .log {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__sidenav .sidenav__content .log .log__content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 16px 25px;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.log .log__content .log__userid,
+.log .log__content .log__title {
+  font-weight: 600;
+  color: #0366d6;
+}
+
+.sidenav__content .log .log__date {
+  font-size: 12px;
+  color: #6a737d;
+  margin-top: 6px;
 }
 
 .board__container .board__content {
@@ -129,9 +162,10 @@
   background-color: #eff1f3;
   padding: 20px;
   margin: 0 10px;
-  border: 1px solid #eff1f3;
+  border: 1px solid #e1e4e8;
   border-radius: 8px;
   width: 100%;
+  box-shadow: 0 1px 0 rgba(27,31,35,.04);
 }
 
 .column .column__header {
@@ -149,8 +183,16 @@
   font-size: 12px;
 }
 
+.column__header .header__right .plus__button {
+  cursor: pointer;
+}
+
 .column__header .header__right .close__button {
   margin-left: 7px;
+}
+
+.column__header .header__right .close__button.hide {
+  display: none;
 }
 
 .card {
@@ -159,9 +201,11 @@
   padding: 10px 10px 10px 40px;
   color: #242922;
   background-color: white;
-  border: 1px solid white;
+  border: 1px solid #e1e4e8;
   border-radius: 5px;
   margin: 10px 0;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(27,31,35,.04);
 }
 
 .card .card__header {
@@ -170,14 +214,64 @@
   position: relative;
 }
 
-.card .card__header .note {
+.card .card__header .close__button {
+  cursor: pointer;
+}
+
+.card .card__header .note__img {
   position: absolute;
   left: -30px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.card .card__content {
-  margin-top: 15px;
+.card .modal .header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 16px;
+  background-color: #f6f8fa;
+  font-weight: bold;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.card .modal .content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 16px 16px;
+}
+
+.card .modal .content > span:nth-of-type(1) {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.card .modal .content > textarea {
+  font-size: 14px;
+  padding: 5px 12px;
+  margin-bottom: 5px;
+  line-height: 1.5;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(225,228,232,.2);
+  margin-bottom: 10px;
+  resize: vertical;
+  max-height: 300px;
+}
+
+.card .modal .content .save__button {
+  cursor: pointer;
+  width: 140px;
+  text-align: center;
+  padding: 10px 16px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #2ea44f;
+  border-color: rgba(27,31,35,.15);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(27,31,35,.1), inset 0 1px 0 hsla(0,0%,100%,.03);
 }
 

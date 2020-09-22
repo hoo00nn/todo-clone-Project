@@ -2,6 +2,8 @@ import request from './utils/request-api';
 import Column from './component/column';
 import '../stylesheets/style.css';
 import Auth from './utils/auth';
+import Modal from './utils/modal';
+import Log from './component/log';
 
 class Board {
   constructor() {
@@ -25,24 +27,15 @@ class Board {
   }
 
   printBoard = async () => {
-    const response = await request(
-      'GET',
-      'http://localhost:8081/api/board');
+    const boardContent = document.querySelector('.board__content');
+    boardContent.innerHTML = '';
 
-    // response.boardList.forEach(async (v) => {
-    //   await new Column(v.title, v.column_no)
-    //   .makeColumnElement();
-    // });
+    const response = await request('GET', '/api/board');
 
     for (const item of response.boardList) {
       await new Column(item.title, item.column_no)
       .makeColumnElement();
     }
-
-    // response.boardList.forEach(async (v) => {
-    //   const column = await new Column(v.title, v.column_no)
-    //   column.makeColumnElement();
-    // });
   }
 
   clickPlusButtonEvent = () => {
@@ -59,10 +52,83 @@ class Board {
 
     note.forEach(v => v.addEventListener('keyup', (e) => {
       const addButton = e.currentTarget.querySelector('.add__button');
-      console.log(e.target.value);
+      
       if (e.target.value === '') addButton.classList.remove('keyup');
       else addButton.classList.add('keyup');
     }))
+  }
+
+  clickCancelButtonEvent = () => {
+    const note = document.querySelectorAll('.note');
+
+    note.forEach(v => {
+      const cancelButton = v.querySelector('.cancel__button');
+      const textarea = v.querySelector('#note');
+      const addButton = v.querySelector('.add__button');
+
+      cancelButton.addEventListener('click', e => {
+        textarea.value = '';
+        addButton.classList.remove('keyup');
+        v.classList.add('hide');
+      })
+    })
+  }
+
+  deleteCardEvent = () => {
+    const card = document.querySelectorAll('.card');
+    
+    card.forEach(v => {
+      const cardInfo = JSON.parse(v.dataset.card);
+      const closeBtn = v.querySelector('.close__button');
+
+      closeBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const response = await request('delete', '/api/card', cardInfo);
+        if (response.status === 'success') await this.init();
+        else alert('삭제에 실패 하였습니다.');
+      });
+    })
+  }
+
+  insertCardEvent = () => {
+    const note = document.querySelectorAll('.note');
+
+    note.forEach(v => {
+      const content = v.querySelector('#note');
+      const addButton = v.querySelector('.add__button');
+
+      addButton.addEventListener('click', async () => {
+        const column = v.closest('.column').dataset.no;
+        const textarea = content.value.split('\n');
+        const body = {
+          title : textarea[0],
+          content : textarea.slice(1).join('\n'),
+          column_no : column, 
+        }
+        const response = await request('POST', '/api/card', body);
+        if (response.status === 'success') await this.init();
+        else alert('카드 추가에 실패하였습니다.');
+      })
+    })
+  }
+
+  updateCardEvent = () => {
+    const card = document.querySelectorAll('.card');
+
+    card.forEach(v => {
+      const saveButton = v.querySelector('.save__button');
+
+      saveButton.addEventListener('click', async () => {
+        const textarea = v.querySelector('#note');
+        let body = JSON.parse(v.dataset.card);
+        body.title = textarea.value.split('\n')[0];
+        body.content = textarea.value.split('\n').slice(1).join('\n');
+        const response = await request('put', '/api/card', body);
+
+        if(response.status === 'success') this.init();
+        else alert('업데이트에 실패 했습니다.');
+      })
+    })
   }
 
   on = () => {
@@ -70,11 +136,17 @@ class Board {
     this.logoutButton.addEventListener('click', this.logout);
     this.clickPlusButtonEvent();
     this.keyDownNoteEvent();
+    this.clickCancelButtonEvent();
+    this.deleteCardEvent();
+    this.insertCardEvent();
+    this.updateCardEvent();
   }
 
   init = async () => {
     await this.printBoard();
     this.on();
+    new Modal().on();
+    new Log().on();
   }
 }
 

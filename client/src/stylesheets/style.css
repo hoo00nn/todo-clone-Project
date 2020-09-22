@@ -1,6 +1,7 @@
 @import './index.css';
 @import './signup.css';
 @import './board.css';
+@import './util/modal.css';
 
 * {
   box-sizing: border-box;;
@@ -16,4 +17,9 @@ body {
 a {
   text-decoration: none;
   color: #0366d6;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
 }

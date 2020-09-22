@@ -4,6 +4,7 @@ const banner = require("./banner.js");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotenv = require('dotenv-webpack');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -69,6 +70,9 @@ module.exports = {
       filename : 'board.html',
       template: './src/board.html', 
       chunks: ['board'],
+    }),
+    new dotenv({
+      path : path.join(__dirname, '../server/.env')
     })
   ],
   devServer: {

@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session(sessionOption));
 app.use(express.static(path.join(__dirname, '../client/src')));
-app.use(cors({ origin : process.env.ORIGIN }));
+app.use(cors({ origin : process.env.ORIGIN, credentials : true }));
 
 app.use('/api', apiRouter);
 

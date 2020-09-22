@@ -4,7 +4,7 @@ const { logService } = require('../../services/log');
 const { isLogined } = require('../../middleware/auth');
 
 router.get('/', isLogined, async (req, res) => {
-  const logList = await logService.getLogByID(req.session.username);
+  const logList = await logService.getLogByID(req.session.user);
   if (logList) return res.status(200).json({ logList });
   return res.status(400).json({ status : 'fail' });
 });
