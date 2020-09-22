@@ -190,10 +190,6 @@
   transform: translateY(-50%);
 }
 
-.card .card__content {
-  margin-top: 15px;
-}
-
 .card .modal .header {
   display: flex;
   justify-content: space-between;

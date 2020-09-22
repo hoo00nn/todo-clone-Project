@@ -15,6 +15,7 @@ class Card {
   }
 
   makeCardContent = (title, content) => {
+    content = content.replaceAll('\n', '<br>');
     let html = '';
 
     html += `<div class="card__header">`;
