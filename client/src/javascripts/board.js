@@ -3,6 +3,7 @@ import Column from './component/column';
 import '../stylesheets/style.css';
 import Auth from './utils/auth';
 import Modal from './utils/modal';
+import Log from './component/log';
 
 class Board {
   constructor() {
@@ -147,6 +148,7 @@ class Board {
     await this.printBoard();
     this.on();
     new Modal().on();
+    new Log().on();
   }
 }
 
