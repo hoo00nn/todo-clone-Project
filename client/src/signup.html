@@ -12,13 +12,11 @@
       <h1 class="title">Create Your Account</h1>
     </div>
     <div class="signup__container">
-      <form action="/api/signup", method="POST", class="signup__form">
         <span class="username">Username or email address</span>
-        <input type="text", name="username">
+        <input type="text", name="username", id="username">
         <span class="password">Password</span>
-        <input type="password", name="password">
-        <button type="submit">Create Account</button>
-      </form>
+        <input type="password", name="password", id="password">
+        <button class="signup">Create Account</button>
     </div>
     <div class="signin__container">
       <span>Already signed up? <a href="/"> Sign in</a>.</span>

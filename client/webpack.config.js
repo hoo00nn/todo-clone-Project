@@ -13,6 +13,7 @@ module.exports = {
   entry: {
     user: path.join(__dirname, "./src/javascripts/signin.js"),
     board: path.join(__dirname, './src/javascripts/board.js'),
+    signup: path.join(__dirname, "./src/javascripts/signup.js"),
   },
   output: {
     filename: "[name].js",
@@ -63,7 +64,7 @@ module.exports = {
       title: 'todo 회원가입',
       filename : 'signup.html',
       template: './src/signup.html', 
-      chunks: ['user'],
+      chunks: ['signup'],
     }),
     new HtmlWebpackPlugin({
       title: 'todo 페이지',
