@@ -6,11 +6,7 @@ class Card {
   }
 
   getCardByColumn = async () => {
-    const response = await request(
-      'GET',
-      `${process.env.API_URL}card`,
-      );
-
+    const response = await request('GET', '/api/card');
     return response;
   }
 

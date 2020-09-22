@@ -7,7 +7,7 @@ class Log {
   }
 
   getLogList = async () => {
-    const response = await request('GET', `${process.env.API_URL}log`);
+    const response = await request('GET', '/api/log');
     return response;
   }
 

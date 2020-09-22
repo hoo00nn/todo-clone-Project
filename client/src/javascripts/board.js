@@ -30,9 +30,7 @@ class Board {
     const boardContent = document.querySelector('.board__content');
     boardContent.innerHTML = '';
 
-    const response = await request(
-      'GET',
-      `${process.env.API_URL}board`);
+    const response = await request('GET', '/api/board');
 
     for (const item of response.boardList) {
       await new Column(item.title, item.column_no)
@@ -85,7 +83,7 @@ class Board {
 
       closeBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
-        const response = await request('delete', `${process.env.API_URL}card`, cardInfo);
+        const response = await request('delete', '/api/card', cardInfo);
         if (response.status === 'success') await this.init();
         else alert('삭제에 실패 하였습니다.');
       });
@@ -107,7 +105,7 @@ class Board {
           content : textarea.slice(1).join('\n'),
           column_no : column, 
         }
-        const response = await request('POST', `${process.env.API_URL}card`, body);
+        const response = await request('POST', '/api/card', body);
         if (response.status === 'success') await this.init();
         else alert('카드 추가에 실패하였습니다.');
       })
@@ -125,7 +123,7 @@ class Board {
         let body = JSON.parse(v.dataset.card);
         body.title = textarea.value.split('\n')[0];
         body.content = textarea.value.split('\n').slice(1).join('\n');
-        const response = await request('put', `${process.env.API_URL}card`, body);
+        const response = await request('put', '/api/card', body);
 
         if(response.status === 'success') this.init();
         else alert('업데이트에 실패 했습니다.');
