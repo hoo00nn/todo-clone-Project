@@ -2,6 +2,7 @@ const request = async (method, url, body=false) => {
   const option = {};
   url = process.env.API_URL + url;
   option.headers = { 'Content-Type' : 'application/json' };
+  option.credentials = 'include';
   
   if(!!body) {
     option.body = JSON.stringify(body);
