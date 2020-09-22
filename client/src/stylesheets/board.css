@@ -153,6 +153,10 @@
   margin-left: 7px;
 }
 
+.column__header .header__right .close__button.hide {
+  display: none;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -170,7 +174,7 @@
   position: relative;
 }
 
-.card .card__header .note {
+.card .card__header .note__img {
   position: absolute;
   left: -30px;
   top: 50%;

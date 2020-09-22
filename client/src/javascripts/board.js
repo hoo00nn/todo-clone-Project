@@ -29,20 +29,10 @@ class Board {
       'GET',
       'http://localhost:8081/api/board');
 
-    // response.boardList.forEach(async (v) => {
-    //   await new Column(v.title, v.column_no)
-    //   .makeColumnElement();
-    // });
-
     for (const item of response.boardList) {
       await new Column(item.title, item.column_no)
       .makeColumnElement();
     }
-
-    // response.boardList.forEach(async (v) => {
-    //   const column = await new Column(v.title, v.column_no)
-    //   column.makeColumnElement();
-    // });
   }
 
   clickPlusButtonEvent = () => {
@@ -59,10 +49,26 @@ class Board {
 
     note.forEach(v => v.addEventListener('keyup', (e) => {
       const addButton = e.currentTarget.querySelector('.add__button');
-      console.log(e.target.value);
+      
       if (e.target.value === '') addButton.classList.remove('keyup');
       else addButton.classList.add('keyup');
     }))
+  }
+
+  clickCancelButtonEvent = () => {
+    const note = document.querySelectorAll('.note');
+
+    note.forEach(v => {
+      const cancelButton = v.querySelector('.cancel__button');
+      const textarea = v.querySelector('#note');
+      const addButton = v.querySelector('.add__button');
+
+      cancelButton.addEventListener('click', e => {
+        textarea.value = '';
+        addButton.classList.remove('keyup');
+        v.classList.add('hide');
+      })
+    })
   }
 
   on = () => {
@@ -70,6 +76,7 @@ class Board {
     this.logoutButton.addEventListener('click', this.logout);
     this.clickPlusButtonEvent();
     this.keyDownNoteEvent();
+    this.clickCancelButtonEvent();
   }
 
   init = async () => {
