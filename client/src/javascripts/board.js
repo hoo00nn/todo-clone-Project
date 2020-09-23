@@ -19,7 +19,7 @@ class Board {
     return alert(isLogout.message);
   }
 
-  SideNavToggle = (e) => {
+  sideNavToggle = (e) => {
     const classList = e.target.classList;
     const sideNav = document.querySelector('.header__sidenav');
   
@@ -120,7 +120,7 @@ class Board {
   }
 
   on = () => {
-    this.boardHeader.addEventListener('click', this.makeSideNavToggle);
+    this.boardHeader.addEventListener('click', this.sideNavToggle);
     this.logoutButton.addEventListener('click', this.logout);
     this.columnWrap.addEventListener('click', this.clickColumnWrapEvent);
     this.columnWrap.addEventListener('keyup', this.keyUpColumnWrapEvent);
@@ -129,6 +129,7 @@ class Board {
   render = async () => {
     await this.printBoard();
     new Modal().on();
+    board.on();
   }
 }
 
