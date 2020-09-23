@@ -92,18 +92,18 @@
   margin-top: 6px;
 }
 
-.board__container .board__content {
+.board__container .board__content .column__wrap {
   display: flex;
   justify-content: space-between;
   padding: 30px;
 }
 
-.board__content .note {
+.board__content .column__wrap .note {
   display: flex;
   flex-direction: column;
 }
 
-.board__content .note.hide {
+.board__content .column__wrap .note.hide {
   display: none;
 }
 
