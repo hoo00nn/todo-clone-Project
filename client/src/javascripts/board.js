@@ -9,6 +9,7 @@ class Board {
   constructor() {
     this.boardHeader = document.querySelector('.board__header');
     this.logoutButton = document.querySelector('#logout__button');
+    this.columnWrap = document.querySelector('.column__wrap');
   }
 
   logout = async () => {
@@ -18,7 +19,7 @@ class Board {
     return alert(isLogout.message);
   }
 
-  makeSideNavToggle = (e) => {
+  sideNavToggle = (e) => {
     const classList = e.target.classList;
     const sideNav = document.querySelector('.header__sidenav');
   
@@ -27,9 +28,8 @@ class Board {
   }
 
   printBoard = async () => {
-    const boardContent = document.querySelector('.board__content');
-    boardContent.innerHTML = '';
-
+    const columnWrap = document.querySelector('.column__wrap');
+    columnWrap.innerHTML = '';
     const response = await request('GET', '/api/board');
 
     for (const item of response.boardList) {
@@ -38,117 +38,101 @@ class Board {
     }
   }
 
-  clickPlusButtonEvent = () => {
-    const plusBtn = document.querySelectorAll('.plus__button');
+  keyUpNoteEvent = (e) => {
+    const note = e.target.closest('.note');
+    const addButton = note.querySelector('.add__button');
+  
+    if (e.target.value === '') addButton.classList.remove('keyup');
+    else addButton.classList.add('keyup');
+  }
+
+  clickPlusButtonEvent = (e) => {
+    const parentNode = e.target.closest('.column');
+    parentNode.querySelector('.note').classList.toggle('hide');
+  }
+
+  clickCancelButtonEvent = (e) => {
+    const note = e.target.closest('.note');
+    const textarea = note.querySelector('#note');
+    const addButton = note.querySelector('.add__button');
+
+    textarea.value = '';
+    addButton.classList.remove('keyup');
+    note.classList.add('hide');
+  }
+
+  clickCloseButtonEvent = async (e) => {
+    const card =e.target.closest('.card');
+    const columnNode = card.closest('.column');
+    const cardCount = columnNode.querySelector('.card__count');
+    const cardInfo = JSON.parse(card.dataset.card);
     
-    plusBtn.forEach(v => v.addEventListener('click', e => {
-      const parentNode = e.target.closest('.column');
-      parentNode.querySelector('.note').classList.toggle('hide');
-    }));
+    const response = await request('delete', '/api/card', cardInfo);
+
+    if (response.status === 'success') {
+      columnNode.removeChild(card);
+      cardCount.innerText -= 1;
+    }
+    else alert('삭제에 실패 하였습니다.');
   }
 
-  keyDownNoteEvent = () => {
-    const note = document.querySelectorAll('.note');
+  clickAddButtonEvent = async (e) => {
+    const note = e.target.closest('.note');
+    const content = note.querySelector('#note');
+    const column = note.closest('.column');
+    const textarea = content.value.split('\n');
+    const body = {
+      title : textarea[0],
+      content : textarea.slice(1).join('\n'),
+      column_no : column.dataset.no, 
+    }
+    const response = await request('POST', '/api/card', body);
 
-    note.forEach(v => v.addEventListener('keyup', (e) => {
-      const addButton = e.currentTarget.querySelector('.add__button');
-      
-      if (e.target.value === '') addButton.classList.remove('keyup');
-      else addButton.classList.add('keyup');
-    }))
+    if (response.status === 'success') {
+      await this.render();
+    }
+    else alert('카드 추가에 실패하였습니다.');
   }
 
-  clickCancelButtonEvent = () => {
-    const note = document.querySelectorAll('.note');
+  clickSaveButtonEvent = async (e) => {
+    const card = e.target.closest('.card');
+    const textarea = card.querySelector('#note');
 
-    note.forEach(v => {
-      const cancelButton = v.querySelector('.cancel__button');
-      const textarea = v.querySelector('#note');
-      const addButton = v.querySelector('.add__button');
+    let body = JSON.parse(card.dataset.card);
+    body.title = textarea.value.split('\n')[0];
+    body.content = textarea.value.split('\n').slice(1).join('\n');
+    const response = await request('put', '/api/card', body);
 
-      cancelButton.addEventListener('click', e => {
-        textarea.value = '';
-        addButton.classList.remove('keyup');
-        v.classList.add('hide');
-      })
-    })
+    if(response.status === 'success') this.render();
+    else alert('업데이트에 실패 했습니다.');
   }
 
-  deleteCardEvent = () => {
-    const card = document.querySelectorAll('.card');
-    
-    card.forEach(v => {
-      const cardInfo = JSON.parse(v.dataset.card);
-      const closeBtn = v.querySelector('.close__button');
-
-      closeBtn.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        const response = await request('delete', '/api/card', cardInfo);
-        if (response.status === 'success') await this.init();
-        else alert('삭제에 실패 하였습니다.');
-      });
-    })
+  clickColumnWrapEvent = (e) => {
+    if (e.target.closest('.plus__button')) return this.clickPlusButtonEvent(e);
+    if (e.target.closest('.cancel__button')) return this.clickCancelButtonEvent(e);
+    if (e.target.closest('.add__button')) return this.clickAddButtonEvent(e);
+    if (e.target.closest('.close__button')) return this.clickCloseButtonEvent(e);
+    if (e.target.closest('.save__button')) return this.clickSaveButtonEvent(e);
   }
 
-  insertCardEvent = () => {
-    const note = document.querySelectorAll('.note');
-
-    note.forEach(v => {
-      const content = v.querySelector('#note');
-      const addButton = v.querySelector('.add__button');
-
-      addButton.addEventListener('click', async () => {
-        const column = v.closest('.column').dataset.no;
-        const textarea = content.value.split('\n');
-        const body = {
-          title : textarea[0],
-          content : textarea.slice(1).join('\n'),
-          column_no : column, 
-        }
-        const response = await request('POST', '/api/card', body);
-        if (response.status === 'success') await this.init();
-        else alert('카드 추가에 실패하였습니다.');
-      })
-    })
-  }
-
-  updateCardEvent = () => {
-    const card = document.querySelectorAll('.card');
-
-    card.forEach(v => {
-      const saveButton = v.querySelector('.save__button');
-
-      saveButton.addEventListener('click', async () => {
-        const textarea = v.querySelector('#note');
-        let body = JSON.parse(v.dataset.card);
-        body.title = textarea.value.split('\n')[0];
-        body.content = textarea.value.split('\n').slice(1).join('\n');
-        const response = await request('put', '/api/card', body);
-
-        if(response.status === 'success') this.init();
-        else alert('업데이트에 실패 했습니다.');
-      })
-    })
+  keyUpColumnWrapEvent = (e) => {
+    if (e.target.closest('.note')) return this.keyUpNoteEvent(e);
   }
 
   on = () => {
-    this.boardHeader.addEventListener('click', this.makeSideNavToggle);
+    this.boardHeader.addEventListener('click', this.sideNavToggle);
     this.logoutButton.addEventListener('click', this.logout);
-    this.clickPlusButtonEvent();
-    this.keyDownNoteEvent();
-    this.clickCancelButtonEvent();
-    this.deleteCardEvent();
-    this.insertCardEvent();
-    this.updateCardEvent();
+    this.columnWrap.addEventListener('click', this.clickColumnWrapEvent);
+    this.columnWrap.addEventListener('keyup', this.keyUpColumnWrapEvent);
   }
 
-  init = async () => {
+  render = async () => {
     await this.printBoard();
-    this.on();
     new Modal().on();
-    new Log().on();
+    board.on();
   }
 }
 
 const board = new Board();
-board.init();
+board.on();
+board.render();

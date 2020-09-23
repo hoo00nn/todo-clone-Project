@@ -16,6 +16,15 @@ const Auth = {
      '/api/user/logout');
 
     return response;
+  },
+
+  trySignup: async (username, password) => {
+    const response = await request(
+      'POST',
+      '/api/user/signup',
+      { username : username, password : password });
+
+      return response;
   }
 }
 

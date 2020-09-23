@@ -27,6 +27,7 @@ class Log {
       html += `<span class="log__date">${this.getDateDiff(v.date)}</span>`;
       html += `</li>`;
     });
+    
     return html;
   }
 
@@ -49,5 +50,7 @@ class Log {
     })
   }
 }
+
+new Log().on();
 
 export default Log;
