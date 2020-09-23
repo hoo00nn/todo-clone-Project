@@ -10,6 +10,6 @@ module.exports = {
   insertCard: `insert into card (title, content, user_id, column_no, date) values (?, ?, ?, ?, now())`,
   updateCard: `update card set title = ?, content = ?, column_no = ? where card_no = ?`,
   deleteCard: `delete from card where card_no = ?`,
-  getLog: `select log_no, user_id, date_format(date, '%Y-%m-%d %H:%i:%s') as date, state, log_to, log_from, message, title from log where user_id = ? order by date desc`,
+  getLog: `select log_no, user_id, date_format(date, '%Y-%m-%d %H:%i:%s') as date, state, log_to, log_from, message, title from log where user_id = ?order by date desc limit 15`,
   insertLog: `insert into log (user_id, date, state, log_to, log_from, message, title) values (?, now(), ?, ?, ?, ?, ?)`,
 }
