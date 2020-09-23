@@ -8,11 +8,12 @@ class Column {
   }
 
   makeColumnHeader = async () => {
+    const cardCount = await this.cards.getCardCountByColumn();
     let html = '';
 
     html += `<div class="column__header">`;
     html += `<div class="header__left">`;
-    html += `<span class="card__count">${await this.cards.getCardCountByColumn()}</span>`;
+    html += `<span class="card__count">${cardCount}</span>`;
     html += `<span class="column_name">${this.title}</span>`;
     html += `</div>`;
     html += `<div class="header__right">`;
@@ -42,13 +43,14 @@ class Column {
 
   makeColumnElement = async () => {
     const columnList = document.querySelector('.column__wrap');
-  
     const cardList = await this.cards.makeCardElement();
+    const columnHeader = await this.makeColumnHeader();
+    const noteElement = this.makeNoteElement();
     let html = '';
     
     html += `<li class="column" data-no=${this.column}>`;
-    html += `${await this.makeColumnHeader()}`;
-    html += `${this.makeNoteElement()}`;
+    html += `${columnHeader}`;
+    html += `${noteElement}`;
     html += `${cardList}`;
     html += `</li>`;
 

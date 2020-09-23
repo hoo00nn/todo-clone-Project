@@ -19,7 +19,7 @@ class Board {
     return alert(isLogout.message);
   }
 
-  makeSideNavToggle = (e) => {
+  SideNavToggle = (e) => {
     const classList = e.target.classList;
     const sideNav = document.querySelector('.header__sidenav');
   
@@ -30,7 +30,6 @@ class Board {
   printBoard = async () => {
     const columnWrap = document.querySelector('.column__wrap');
     columnWrap.innerHTML = '';
-
     const response = await request('GET', '/api/board');
 
     for (const item of response.boardList) {
@@ -64,26 +63,34 @@ class Board {
 
   clickCloseButtonEvent = async (e) => {
     const card =e.target.closest('.card');
+    const columnNode = card.closest('.column');
+    const cardCount = columnNode.querySelector('.card__count');
     const cardInfo = JSON.parse(card.dataset.card);
+    
     const response = await request('delete', '/api/card', cardInfo);
 
-    if (response.status === 'success') await this.init();
+    if (response.status === 'success') {
+      columnNode.removeChild(card);
+      cardCount.innerText -= 1;
+    }
     else alert('삭제에 실패 하였습니다.');
   }
 
   clickAddButtonEvent = async (e) => {
     const note = e.target.closest('.note');
     const content = note.querySelector('#note');
-    const column = note.closest('.column').dataset.no;
+    const column = note.closest('.column');
     const textarea = content.value.split('\n');
     const body = {
       title : textarea[0],
       content : textarea.slice(1).join('\n'),
-      column_no : column, 
+      column_no : column.dataset.no, 
     }
     const response = await request('POST', '/api/card', body);
 
-    if (response.status === 'success') await this.init();
+    if (response.status === 'success') {
+      await this.render();
+    }
     else alert('카드 추가에 실패하였습니다.');
   }
 
@@ -96,7 +103,7 @@ class Board {
     body.content = textarea.value.split('\n').slice(1).join('\n');
     const response = await request('put', '/api/card', body);
 
-    if(response.status === 'success') this.init();
+    if(response.status === 'success') this.render();
     else alert('업데이트에 실패 했습니다.');
   }
 
@@ -119,13 +126,12 @@ class Board {
     this.columnWrap.addEventListener('keyup', this.keyUpColumnWrapEvent);
   }
 
-  init = async () => {
+  render = async () => {
     await this.printBoard();
-    this.on();
     new Modal().on();
-    new Log().on();
   }
 }
 
 const board = new Board();
-board.init();
+board.on();
+board.render();

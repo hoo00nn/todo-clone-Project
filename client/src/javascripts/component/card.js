@@ -5,7 +5,7 @@ class Card {
     this.column = colNumber;
   }
 
-  getCardByColumn = async () => {
+  getCardsByColumn = async () => {
     const response = await request('GET', '/api/card');
     return response;
   }
@@ -49,7 +49,7 @@ class Card {
 
   makeCardElement = async () => {
     let html = '';
-    const cards = await this.getCardByColumn();
+    const cards = await this.getCardsByColumn();
     
     cards.cardList
     .filter(v => v.column_no === this.column)
@@ -60,12 +60,11 @@ class Card {
       html += `</div>`;
     });
     
-
     return html;
   }
 
   getCardCountByColumn = async () => {
-    const cards = await this.getCardByColumn();
+    const cards = await this.getCardsByColumn();
     const count = cards.cardList.filter(v => v.column_no === this.column).length;
 
     return count;
