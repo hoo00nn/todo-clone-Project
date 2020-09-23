@@ -12,7 +12,7 @@ class Modal {
 
   clickModalOpenEvent = () => {
     this.modalOpen.forEach(v => {
-      v.addEventListener('click', (e) => {
+      v.addEventListener('dblclick', (e) => {
         e.currentTarget.querySelector('.modal').classList.remove('hidden');
       });
     });
