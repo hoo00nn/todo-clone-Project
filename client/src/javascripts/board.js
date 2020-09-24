@@ -3,6 +3,7 @@ import Column from './component/column';
 import '../stylesheets/style.css';
 import Auth from './utils/auth';
 import Modal from './utils/modal';
+import Drag from './utils/drag';
 import Log from './component/log';
 
 class Board {
@@ -28,14 +29,14 @@ class Board {
   }
 
   printBoard = async () => {
-    const columnWrap = document.querySelector('.column__wrap');
-    columnWrap.innerHTML = '';
     const response = await request('GET', '/api/board');
+    let html = '';
 
     for (const item of response.boardList) {
-      await new Column(item.title, item.column_no)
-      .makeColumnElement();
+      html += await new Column(item.title, item.column_no).makeColumnElement();
     }
+    
+    return html;
   }
 
   keyUpNoteEvent = (e) => {
@@ -44,6 +45,21 @@ class Board {
   
     if (e.target.value === '') addButton.classList.remove('keyup');
     else addButton.classList.add('keyup');
+  }
+
+  keyUpModalNoteEvent = (e) => {
+    const note = e.target.closest('.modal__note');
+    const saveButton = note.nextSibling;
+    
+    if (e.target.value === '') saveButton.classList.remove('keyup');
+    else saveButton.classList.add('keyup');
+  }
+
+  keyUpColumnModalEvent = (e) => {
+    const updateButton = e.target.nextSibling;
+
+    if (e.target.value === '') updateButton.classList.remove('keyup');
+    else updateButton.classList.add('keyup');
   }
 
   clickPlusButtonEvent = (e) => {
@@ -63,17 +79,15 @@ class Board {
 
   clickCloseButtonEvent = async (e) => {
     const card =e.target.closest('.card');
-    const columnNode = card.closest('.column');
-    const cardCount = columnNode.querySelector('.card__count');
     const cardInfo = JSON.parse(card.dataset.card);
-    
-    const response = await request('delete', '/api/card', cardInfo);
+    const isConfirmed = confirm('선택하신 카드를 삭제하시겠습니까?');
 
-    if (response.status === 'success') {
-      columnNode.removeChild(card);
-      cardCount.innerText -= 1;
+    if (isConfirmed) {
+      const response = await request('delete', '/api/card', cardInfo);
+
+      if (response.status === 'success') await this.render();
+      else alert('삭제에 실패 하였습니다.');
     }
-    else alert('삭제에 실패 하였습니다.');
   }
 
   clickAddButtonEvent = async (e) => {
@@ -107,16 +121,31 @@ class Board {
     else alert('업데이트에 실패 했습니다.');
   }
 
+  clickUpdateButtonEvent = async (e) => {
+    const columnNumber = e.target.closest('.column').dataset.no;
+    const columnTitle = e.target.previousSibling;
+    const response = await request(
+      'PUT',
+      '/api/board',
+      { column_no : columnNumber, title : columnTitle.value });
+
+    if (response.status === 'success') this.render();
+    else alert('컬럼 수정에 실패 했습니다.');
+  }
+
   clickColumnWrapEvent = (e) => {
     if (e.target.closest('.plus__button')) return this.clickPlusButtonEvent(e);
     if (e.target.closest('.cancel__button')) return this.clickCancelButtonEvent(e);
     if (e.target.closest('.add__button')) return this.clickAddButtonEvent(e);
     if (e.target.closest('.close__button')) return this.clickCloseButtonEvent(e);
     if (e.target.closest('.save__button')) return this.clickSaveButtonEvent(e);
+    if (e.target.closest('.update__button')) return this.clickUpdateButtonEvent(e);
   }
 
   keyUpColumnWrapEvent = (e) => {
     if (e.target.closest('.note')) return this.keyUpNoteEvent(e);
+    if (e.target.closest('.modal__note')) return this.keyUpModalNoteEvent(e);
+    if (e.target.closest('.column__box')) return this.keyUpColumnModalEvent(e);
   }
 
   on = () => {
@@ -127,12 +156,14 @@ class Board {
   }
 
   render = async () => {
-    await this.printBoard();
+    const columnWrap = document.querySelector('.column__wrap');
+    columnWrap.innerHTML = await this.printBoard();
     new Modal().on();
-    board.on();
   }
 }
 
 const board = new Board();
 board.on();
 board.render();
+
+export default Board;

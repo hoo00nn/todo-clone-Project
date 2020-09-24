@@ -53,10 +53,10 @@ const Board = {
     return result;
   },
 
-  updateBoard : async (newTitle, title) => {
+  updateBoard : async (data) => {
     const result = await SqlExec(async (conn) => {
       try {
-        await conn.query(query.updateBoard, [newTitle, title]);
+        await conn.query(query.updateBoard, data);
         await conn.commit();
         return true;
       } catch(err) {

@@ -17,6 +17,23 @@ const Log = {
       }
     })
     return result;
+  },
+
+  insertLogByMove: async (logData) => {
+    const result = await SqlExec(async (conn) => {
+      try {
+        await conn.query(query.insertLog, logData);
+        await conn.commit();
+        return true;
+      } catch(err) {
+        console.log('Query Error');
+        await conn.rollback();
+        return false;
+      } finally {
+        conn.release();
+      }
+    })
+    return result;
   }
 }
 

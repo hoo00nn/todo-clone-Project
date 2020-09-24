@@ -6,7 +6,7 @@ const SqlExec = async (callback) => {
     await connection.beginTransaction();
     return callback(connection);
   } catch(err) {
-      console.log('DB Error');
+    console.log('DB Error');
     return false;
   }
 };

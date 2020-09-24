@@ -2,6 +2,7 @@
 @import './signup.css';
 @import './board.css';
 @import './util/modal.css';
+@import './util/drag.css';
 
 * {
   box-sizing: border-box;;
