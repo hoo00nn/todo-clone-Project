@@ -55,6 +55,13 @@ class Board {
     else saveButton.classList.add('keyup');
   }
 
+  keyUpColumnModalEvent = (e) => {
+    const updateButton = e.target.nextSibling;
+
+    if (e.target.value === '') updateButton.classList.remove('keyup');
+    else updateButton.classList.add('keyup');
+  }
+
   clickPlusButtonEvent = (e) => {
     const parentNode = e.target.closest('.column');
     parentNode.querySelector('.note').classList.toggle('hide');
@@ -114,17 +121,31 @@ class Board {
     else alert('업데이트에 실패 했습니다.');
   }
 
+  clickUpdateButtonEvent = async (e) => {
+    const columnNumber = e.target.closest('.column').dataset.no;
+    const columnTitle = e.target.previousSibling;
+    const response = await request(
+      'PUT',
+      '/api/board',
+      { column_no : columnNumber, title : columnTitle.value });
+
+    if (response.status === 'success') this.render();
+    else alert('컬럼 수정에 실패 했습니다.');
+  }
+
   clickColumnWrapEvent = (e) => {
     if (e.target.closest('.plus__button')) return this.clickPlusButtonEvent(e);
     if (e.target.closest('.cancel__button')) return this.clickCancelButtonEvent(e);
     if (e.target.closest('.add__button')) return this.clickAddButtonEvent(e);
     if (e.target.closest('.close__button')) return this.clickCloseButtonEvent(e);
     if (e.target.closest('.save__button')) return this.clickSaveButtonEvent(e);
+    if (e.target.closest('.update__button')) return this.clickUpdateButtonEvent(e);
   }
 
   keyUpColumnWrapEvent = (e) => {
     if (e.target.closest('.note')) return this.keyUpNoteEvent(e);
     if (e.target.closest('.modal__note')) return this.keyUpModalNoteEvent(e);
+    if (e.target.closest('.column__box')) return this.keyUpColumnModalEvent(e);
   }
 
   on = () => {

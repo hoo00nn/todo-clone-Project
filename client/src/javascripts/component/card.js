@@ -39,7 +39,7 @@ class Card {
     html += `<div class="content">`;
     html += `<span>Note</span>`;
     html += `<textarea class="modal__note" name="note" id="note" rows="6">${title}\n${content}</textarea>`;
-    html += `<span class="save__button">Save Note</span>`;
+    html += `<span class="save__button keyup">Save Note</span>`;
     html += `</div>`;
     html += `</div>`;
     html += `</div>`;

@@ -40,7 +40,7 @@ class Column {
     html += `<div class="content">`;
     html += `<span>Column Name</span>`;
     html += `<input type='text' class="column__box" name="column__box" value="${this.title}">`;
-    html += `<span class="save__button">Update Column</span>`;
+    html += `<span class="update__button keyup">Update Column</span>`;
     html += `</div>`;
     html += `</div>`;
     html += `</div>`;
