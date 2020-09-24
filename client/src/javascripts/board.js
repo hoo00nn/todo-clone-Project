@@ -72,13 +72,15 @@ class Board {
 
   clickCloseButtonEvent = async (e) => {
     const card =e.target.closest('.card');
-    const columnNode = card.closest('.column');
     const cardInfo = JSON.parse(card.dataset.card);
-    
-    const response = await request('delete', '/api/card', cardInfo);
+    const isConfirmed = confirm('선택하신 카드를 삭제하시겠습니까?');
 
-    if (response.status === 'success') await this.render();
-    else alert('삭제에 실패 하였습니다.');
+    if (isConfirmed) {
+      const response = await request('delete', '/api/card', cardInfo);
+
+      if (response.status === 'success') await this.render();
+      else alert('삭제에 실패 하였습니다.');
+    }
   }
 
   clickAddButtonEvent = async (e) => {
