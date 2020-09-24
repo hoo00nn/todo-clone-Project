@@ -3,6 +3,7 @@ import Column from './component/column';
 import '../stylesheets/style.css';
 import Auth from './utils/auth';
 import Modal from './utils/modal';
+import Drag from './utils/drag';
 import Log from './component/log';
 
 class Board {
@@ -129,7 +130,6 @@ class Board {
   render = async () => {
     await this.printBoard();
     new Modal().on();
-    board.on();
   }
 }
 

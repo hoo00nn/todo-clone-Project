@@ -54,7 +54,7 @@ class Card {
     cards.cardList
     .filter(v => v.column_no === this.column)
     .forEach(v => {
-      html += `<div class="card modal__open" data-card='${JSON.stringify(v)}'>`;
+      html += `<div class="card modal__open" draggable="true" data-card='${JSON.stringify(v)}'>`;
       html += `${this.makeCardModal(v.title, v.content)}`;
       html += `${this.makeCardContent(v.title, v.content)}`;
       html += `</div>`;
