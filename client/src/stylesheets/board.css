@@ -52,10 +52,6 @@
   background-color: #f6f8fa;
 }
 
-.header__sidenav .sidenav__header .sidenav__close-btn {
-  cursor: pointer;
-}
-
 .header__sidenav .sidenav__alarm {
   padding: 8px 10px;
   border-bottom: 1px solid #ebebeb;
@@ -183,8 +179,17 @@
   font-size: 12px;
 }
 
-.column__header .header__right .plus__button {
+.column__header .header__right .plus__button,
+.header__sidenav .sidenav__header .sidenav__close-btn,
+.card .card__header .close__button {
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.column__header .header__right .plus__button:hover,
+.card .card__header .close__button:hover,
+.header__sidenav .sidenav__header .sidenav__close-btn:hover {
+  transform: scale(1.3);
 }
 
 .column__header .header__right .close__button {
@@ -212,10 +217,6 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-}
-
-.card .card__header .close__button {
-  cursor: pointer;
 }
 
 .card .card__header .note__img {
