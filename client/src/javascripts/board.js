@@ -47,6 +47,14 @@ class Board {
     else addButton.classList.add('keyup');
   }
 
+  keyUpModalNoteEvent = (e) => {
+    const note = e.target.closest('.modal__note');
+    const saveButton = note.nextSibling;
+    
+    if (e.target.value === '') saveButton.classList.remove('keyup');
+    else saveButton.classList.add('keyup');
+  }
+
   clickPlusButtonEvent = (e) => {
     const parentNode = e.target.closest('.column');
     parentNode.querySelector('.note').classList.toggle('hide');
@@ -114,6 +122,7 @@ class Board {
 
   keyUpColumnWrapEvent = (e) => {
     if (e.target.closest('.note')) return this.keyUpNoteEvent(e);
+    if (e.target.closest('.modal__note')) return this.keyUpModalNoteEvent(e);
   }
 
   on = () => {
