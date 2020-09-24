@@ -55,14 +55,32 @@ const Card = {
     return result;
   },
   
-  deleteCard : async (card_no, logData) => {
+  deleteCard : async (card_no, order, logData) => {
     const result = await SqlExec(async (conn) => {
       try {
+        await conn.query(query.updateCardOrderByColumn, [order]);
         const [ card ] = await conn.query(query.deleteCard, [card_no]);
         const [ log ] = await conn.query(query.insertLog, logData);
         if (card.affectedRows === 0) throw Error();
         await conn.commit();
         return true;
+      } catch(err) {
+        console.log('Query Error');
+        await conn.rollback();
+        return false;
+      } finally {
+        conn.release();
+      }
+    })
+    return result;
+  },
+
+  getMaxCountCardByColumn : async (column_no, user_id) => {
+    const result = await SqlExec(async (conn) => {
+      try {
+        const [ count ] = await conn.query(query.getMaxCountCardByColumn, [column_no, user_id]);
+        await conn.commit();
+        return count[0].maxOrder;
       } catch(err) {
         console.log('Query Error');
         await conn.rollback();

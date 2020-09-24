@@ -2,7 +2,8 @@ const { Card } = require('../models/card');
 const { logService } = require('../services/log');
 
 const insertCard = async (data) => {
-  const cardData = [data.title, data.content, data.user_id, data.column_no];
+  const maxCountCardByColumn = await Card.getMaxCountCardByColumn(data.column_no, data.user_id);
+  const cardData = [data.title, data.content, data.user_id, data.column_no, maxCountCardByColumn+1];
   const logData = await logService.logByAdd(data);
   const insertCard = await Card.insertCard(cardData, logData);
   return insertCard;
@@ -14,7 +15,7 @@ const getCardByID = async (id) => {
 
 const deleteCard = async (data) => {
   const logData = await logService.logByDelete(data);
-  const deleteCard = await Card.deleteCard(data.card_no, logData); 
+  const deleteCard = await Card.deleteCard(data.card_no, data.card_order, logData);
   return deleteCard;
 }
 
