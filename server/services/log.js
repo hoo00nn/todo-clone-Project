@@ -25,8 +25,19 @@ const logService = {
     return logData;
   },
 
-  logByMove: () => {
-
+  logByMove: async (previousCard, column) => {
+    const state = 'moved';
+    const from = await Board.getBoardName(previousCard.column_no);
+    const to = await Board.getBoardName(column);
+    let message = '';
+    if (from[0].title === to[0].title) {
+      message = `@${previousCard.user_id} ${state} the column ${from[0].title}`;
+    } 
+    else {
+      message = `@${previousCard.user_id} ${state} ${previousCard.title} from ${from[0].title} to ${to[0].title}`;
+    }
+    const logData = [previousCard.user_id, state, to[0].title, from[0].title, message, previousCard.title];
+    return logData;
   },
 
   getLogByID: async (id) => {
