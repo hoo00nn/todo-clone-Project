@@ -65,15 +65,11 @@ class Board {
   clickCloseButtonEvent = async (e) => {
     const card =e.target.closest('.card');
     const columnNode = card.closest('.column');
-    const cardCount = columnNode.querySelector('.card__count');
     const cardInfo = JSON.parse(card.dataset.card);
     
     const response = await request('delete', '/api/card', cardInfo);
 
-    if (response.status === 'success') {
-      columnNode.removeChild(card);
-      cardCount.innerText -= 1;
-    }
+    if (response.status === 'success') await this.render();
     else alert('삭제에 실패 하였습니다.');
   }
 
@@ -136,3 +132,5 @@ class Board {
 const board = new Board();
 board.on();
 board.render();
+
+export default Board;

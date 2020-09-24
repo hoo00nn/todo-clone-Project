@@ -1,3 +1,6 @@
+import request from './request-api';
+import Board from '../board';
+
 class Drag {
   constructor() {
     this.columnWrap = document.querySelector('.column__wrap');
@@ -49,8 +52,19 @@ class Drag {
     }, { offset : Number.NEGATIVE_INFINITY }).element;
   }
 
-  dragDropCard = (e) => {
+  dragDropCard = async (e) => {
     const card = JSON.parse(e.dataTransfer.getData('cardInfo'));
+    const column = e.target.closest('.column');
+    const cardsAll = [...column.querySelectorAll('.card')]
+    const cardOrderList = cardsAll.map(v => JSON.parse(v.dataset.card).card_no).reverse();
+    const body = {
+      orderList : cardOrderList,
+      column : column.dataset.no,
+      previousCard : card,
+    }
+    const response = await request('PUT', '/api/card/drag', body); 
+
+    if (response.status === 'success') new Board().render();
   }
 }
 

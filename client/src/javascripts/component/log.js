@@ -21,8 +21,10 @@ class Log {
       html += `<span class="log__userid">@${v.user_id} </span>`;
       html += `<span class="log__state">${v.state} </span>`;
       html += `<span class="log__title">${v.title} </span>`;
-      if(v.log_from !== null) html += `<span class="log__to">from <strong>${v.log_from}</strong> </span>`;
-      if(v.log_to !== null) html += `<span class="log__to">to <strong>${v.log_to}</strong> </span>`;
+      if(v.log_from !== null && v.log_to === null) html += `<span class="log__to">from <strong>${v.log_from}</strong> </span>`;
+      else if(v.log_to !== null && v.log_from === null) html += `<span class="log__to">to <strong>${v.log_to}</strong> </span>`;
+      else if (v.log_from === v.log_to) html += `<span class="log__to">the column <strong>${v.log_from}</strong> </span>`;
+      else if (v.log_from !== v.log_to) html += `<span class="log__to">from <strong>${v.log_from}</strong> to <strong>${v.log_to}</strong></span>`;
       html += `</span>`;
       html += `<span class="log__date">${this.getDateDiff(v.date)}</span>`;
       html += `</li>`;
