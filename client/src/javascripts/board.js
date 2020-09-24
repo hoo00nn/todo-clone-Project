@@ -29,14 +29,14 @@ class Board {
   }
 
   printBoard = async () => {
-    const columnWrap = document.querySelector('.column__wrap');
-    columnWrap.innerHTML = '';
     const response = await request('GET', '/api/board');
+    let html = '';
 
     for (const item of response.boardList) {
-      await new Column(item.title, item.column_no)
-      .makeColumnElement();
+      html += await new Column(item.title, item.column_no).makeColumnElement();
     }
+    
+    return html;
   }
 
   keyUpNoteEvent = (e) => {
@@ -124,7 +124,8 @@ class Board {
   }
 
   render = async () => {
-    await this.printBoard();
+    const columnWrap = document.querySelector('.column__wrap');
+    columnWrap.innerHTML = await this.printBoard();
     new Modal().on();
   }
 }

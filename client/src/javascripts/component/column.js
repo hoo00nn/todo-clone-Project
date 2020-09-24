@@ -42,7 +42,6 @@ class Column {
   }
 
   makeColumnElement = async () => {
-    const columnList = document.querySelector('.column__wrap');
     const cardList = await this.cards.makeCardElement();
     const columnHeader = await this.makeColumnHeader();
     const noteElement = this.makeNoteElement();
@@ -54,7 +53,7 @@ class Column {
     html += `${cardList}`;
     html += `</li>`;
 
-    columnList.insertAdjacentHTML('beforeend', html);
+    return html;
   }
 }
 
