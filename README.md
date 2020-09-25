@@ -5,6 +5,8 @@
 
 ## Demo
 
+![Sep-25-2020 10-44-42](https://user-images.githubusercontent.com/52775389/94217156-43ce9280-ff1c-11ea-8ad3-c5792fc2bb40.gif)
+
 ## 프로젝트 구조
 
 - client
