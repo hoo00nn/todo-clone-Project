@@ -1,8 +1,11 @@
 # Membership Mission 2 - 할일관리 (to do)
 
-## 배포 주소
-
+## URL
 - [http://101.101.216.75/](http://101.101.216.75/)
+
+## Demo
+
+![Sep-25-2020 10-44-42](https://user-images.githubusercontent.com/52775389/94217156-43ce9280-ff1c-11ea-8ad3-c5792fc2bb40.gif)
 
 ## 프로젝트 구조
 
@@ -83,9 +86,7 @@
 
 ## Database Scheme
 
-![image](https://user-images.githubusercontent.com/52775389/94162858-22d95380-fec2-11ea-993e-efd9a8c14616.png)
-
-## Demo
+![image](https://user-images.githubusercontent.com/52775389/94163396-c1fe4b00-fec2-11ea-8885-dc2453977c8b.png)
 
 ## Install
 
