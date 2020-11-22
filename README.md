@@ -1,8 +1,3 @@
-# Membership Mission 2 - 할일관리 (to do)
-
-## URL
-- [http://101.101.216.75/](http://101.101.216.75/)
-
 ## Demo
 
 ![Sep-25-2020 10-44-42](https://user-images.githubusercontent.com/52775389/94217156-43ce9280-ff1c-11ea-8ad3-c5792fc2bb40.gif)
@@ -95,7 +90,7 @@ cd client
 npm install
 
 cd server
-npm install 
+npm install
 ```
 
 ### Webpack Build
